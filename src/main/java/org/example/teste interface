@@ -1,0 +1,79 @@
+public interface Veiculo {
+    public String placa = "";
+    public float velMax
+    public void iniciar();
+    public void parar();
+    default void buzinar(){
+      System.out.println("Buzinando");
+   }
+}
+A interface acima contém dois campos, dois métodos e um método padrão. Sozinha, ela não tem uma finalidade específica, mas a interface geralmente é usada em conjunto com as Classes. Como? É simples. você precisa garantir que alguma classe a implemente.
+
+public class Carro implements Veiculo {
+    public void iniciar() {
+        System.out.println("ligando o motor...");
+    }
+    public void parar() {
+        System.out.println("parando o motor...");
+    }
+}
+Temos, porém, uma regra geral: a Classe deve implementar todos os métodos da Interface. Os métodos devem ter exatamente a mesma assinatura (nome, parâmetros e exceções) descrita na interface. No entanto, a classe não precisa declarar os campos, apenas os métodos.
+
+Instâncias de uma interface
+Ao criar uma Classe do Java, que implementa uma Interface, a instância do objeto pode ser referenciada como uma instância da interface. Esse conceito é semelhante ao de instanciação por herança.
+
+// seguindo o exemplo anterior
+
+Veiculo tesla = new Carro();
+
+tesla.iniciar(); // ligando o motor...
+Uma interface não pode conter um método construtor. Por isso, você não pode criar uma instância da própria interface. É preciso criar uma instância de alguma classe que implemente a interface para fazer referência a ela.
+
+Pense nas interfaces como se elas fossem um formulário de contrato em branco ou um modelo.
+
+O que é possível fazer com esse recurso? Polimorfismo! Você pode usar apenas interfaces para fazer referência a instâncias de objeto!
+
+class Caminhao implements Veiculo {
+    public void iniciar() {
+        System.out.println("ligando o motor do caminhão...");
+    }
+    public void parar() {
+        System.out.println("parando o motor do caminhão...");
+    }
+}
+
+class Iniciador {
+    // método estático, pode ser chamado sem instanciar a classe
+    public static void iniciarMotor(Veiculo veiculo) {
+        veiculo.iniciar();
+    }
+}
+
+Veiculo tesla = new Carro();
+Veiculo tata = new Caminhao();
+
+Iniciador.iniciarMotor(tesla); // ligando o motor...
+Iniciador.iniciarMotor(tata); // ligando o motor do caminhão...
+Existe herança múltipla?
+Sim, você pode implementar várias interfaces em uma única classe. Embora na herança dentro das Classes você esteja restrito a herdar apenas uma classe, com as interfaces, você pode herdar várias. Não se esqueça, porém, de implementar todos os métodos de todas as interfaces para não gerar um erro de compilação!
+
+public interface GPS {
+    public void obterCoordenadas();
+}
+
+public interface Radio {
+    public void ligarRadio();
+    public void pararRadio();
+}
+
+public class Smartphone implements GPS,Radio {
+    public void obterCoordenadas() {
+        // retorna coordenadas
+    }
+    public void ligarRadio() {
+      // liga o rádio
+    }
+    public void pararRadio() {
+        // desliga o rádio
+    }
+}
