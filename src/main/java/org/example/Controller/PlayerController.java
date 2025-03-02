@@ -1,40 +1,36 @@
 package org.example.Controller;
+import org.example.Model.Player;
+//import org.example.Viwer.PlayerView;
 
-class PlayerController implements PlayerInterface{
+public class PlayerController{
 
-    private String nome;
-    private int vida;
-    private int dano;
+    private Player _player;
+//    private PlayerView _view;
 
     public PlayerController(String nome){
-        this.nome = nome;
-        this.vida = 100;
-        this.dano = 5;
+        _player = new Player(nome);
+//        _view = new PlayerView();
+    }
+//    public void MostrarStatus()
+//    {
+//        {} infoplayer = _view.InfoPlayer(_player);
+//        return infoplayer;
+//    }
+    public void receberDano(int danoInimigo) {
+       _player.receberDano(danoInimigo);
     }
 
-    @Override
-    public void receberDano(int danoInimigo){
-        this.vida -= danoInimigo;
+    public int getDano() {
+        return _player.getDano();
     }
 
-    @Override
-    public int getDano(){
-        return this.dano;
+    public int getVida() {
+        return _player.getVida();
     }
-    @Override
-    public int getVida(){
-        return this.vida;
-    }
-    @Override
-    public String getNome(){
-        return this.nome;
-    }
-}
-interface PlayerInterface{
 
-    void receberDano(int danoInimigo);
-    int getDano();
-    int getVida();
-    String getNome();
+    public String getNome() {
+        return _player.getNome();
+    }
+
 
 }

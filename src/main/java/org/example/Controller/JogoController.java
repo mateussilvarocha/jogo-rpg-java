@@ -1,4 +1,5 @@
 package org.example.Controller;
+import org.example.Model.Inimigo;
 
 public class JogoController {
     private PlayerController player;
@@ -10,7 +11,7 @@ public class JogoController {
         player = new PlayerController(nome);
     }
     public void criarInimigo(String nome, int dano, int vida){
-        inimigo = new InimigoController(nome, dano, vida);
+        inimigo = new InimigoController(nome, dano, vida, new Inimigo());
     }
     public void balanceadorInimigo(){
         String nome = "Inimigo";

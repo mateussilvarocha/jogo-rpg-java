@@ -1,14 +1,17 @@
 package org.example.Controller;
+import org.example.Model.Inimigo;
 
 class InimigoController implements InimigoInterface{
     private String nome;
     private int vida;
     private int dano;
+    private Inimigo inimigo;
 
-    public InimigoController(String nome, int vida, int dano){
+    public InimigoController(String nome, int vida, int dano, Inimigo inimigo){
         this.nome = nome;
         this.vida = vida;
         this.dano = dano;
+        this.inimigo = inimigo;
     }
 
     @Override
