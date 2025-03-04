@@ -1,5 +1,4 @@
 package org.example.Controller;
-import org.example.Model.Inimigo;
 import org.example.Model.JogoModel;
 
 public class JogoController {
@@ -12,5 +11,14 @@ public class JogoController {
     }
     public void criarPlayer(String nome){
         jogo.criarPlayer(nome);
+    }
+    public void batalhar(){
+        jogo.batalhar();
+    }
+    public void iniciarBatalha(){
+        jogo.iniciarBatalha();
+    }
+    public boolean confirmarFimJogo(){
+        return jogo.confirmarFimJogo();
     }
 }

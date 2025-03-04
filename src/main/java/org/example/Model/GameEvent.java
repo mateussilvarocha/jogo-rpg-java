@@ -1,9 +1,53 @@
 package org.example.Model;
 
+import org.example.Controller.JogoController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+
+// Classe principal do jogo
+public class GameEvent {
+    public EventManager events;
+    private String gameState;
+
+    public GameEvent(JogoController jogoController) {
+        this.events = new EventManager();
+        JogoController jogo = jogoController;
+    }
+
+    public void startGame() {
+        this.gameState = "started";
+        events.notificar("start", "O jogo começou!");
+    }
+
+    public void endGame() {
+        this.gameState = "ended";
+        events.notificar("end", "O jogo terminou!");
+    }
+    public void printar(){
+        System.out.println("Botão clicado!");
+    }
+    public void scorePlayer(String playerName) {
+        events.notificar("score", playerName + " marcou um ponto!");
+    }
+    public void criarPlayer(String nome){
+        data = jogo.criarPlayer(nome);
+        events.notificar("score", playerName + " marcou um ponto!");
+    }
+    public void batalhar(){
+        jogo.batalhar();
+    }
+    public void iniciarBatalha(){
+        jogo.iniciarBatalha();
+    }
+    public boolean confirmarFimJogo(){
+        return gameEvent.confirmarFimJogo();
+    }
+}
 
 // Classe gerenciadora de eventos
 class EventManager {
@@ -55,33 +99,6 @@ class Editor {
 // Interface para os ouvintes de eventos
 interface EventListener {
     void update(String filename);
-}
-
-
-// Classe principal do jogo
-public class GameEvent {
-    public EventManager events;
-    private String gameState;
-
-    public GameEvent() {
-        this.events = new EventManager();
-    }
-
-    public void startGame() {
-        this.gameState = "started";
-        events.notificar("start", "O jogo começou!");
-    }
-
-    public void endGame() {
-        this.gameState = "ended";
-        events.notificar("end", "O jogo terminou!");
-    }
-    public void printar(){
-        System.out.println("Botão clicado!");
-    }
-    public void scorePlayer(String playerName) {
-        events.notificar("score", playerName + " marcou um ponto!");
-    }
 }
 
 

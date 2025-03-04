@@ -1,22 +1,25 @@
 package org.example.Viwer;
+import org.example.Controller.GameEventController;
 import org.example.Controller.JogoController;
 import java.util.Scanner;
 
 public class UI_Terminal {
     Scanner scanner = new Scanner(System.in);
     JogoController jogo = new JogoController();
+    GameEventController gameEvent = new GameEventController(jogo);
+
     public void criarPlayer(){
         System.out.print("Digite o nome do jogador: ");
         String nomeJogador = scanner.nextLine();
-        jogo.criarPlayer(nomeJogador);
+        gameEvent.criarPlayer(nomeJogador);
     }
 
     public void batalhar() {
     System.out.println("\nGerando inimigo...");
-    jogo.iniciarBatalha();
+        gameEvent.iniciarBatalha();
 
     System.out.println("\nBatalha iniciando!");
-    jogo.batalhar();
+        gameEvent.batalhar();
     }
     public void fimJogo(){
 
@@ -24,7 +27,7 @@ public class UI_Terminal {
     }
     public void run(){
         criarPlayer();
-        while (jogo.confirmarFimJogo()) { // Verifica após cada batalha
+        while (gameEvent.confirmarFimJogo()) { // Verifica após cada batalha
             System.out.println("\nDeseja continuar jogando? (s/n)");
             String resposta = scanner.nextLine();
 

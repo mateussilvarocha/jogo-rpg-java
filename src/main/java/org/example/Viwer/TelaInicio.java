@@ -1,11 +1,15 @@
 package org.example.Viwer;
 
 import org.example.Controller.GameEventController;
+import org.example.Controller.JogoController;
+
 import javax.swing.*;
 
 public class TelaInicio {
     private JPanel panel;
-    GameEventController game = new GameEventController();
+    JogoController jogo = new JogoController();
+    GameEventController game = new GameEventController(jogo);
+
 
     public TelaInicio() {
         JButton button = new ButtonBuilder("Clique Aqui")

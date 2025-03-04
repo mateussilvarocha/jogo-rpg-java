@@ -8,9 +8,9 @@ public class JogoModel {
     private PlayerController player;
     private InimigoController inimigo;
 
-    public JogoModel(PlayerController player, InimigoController inimigo){]
-        player = player;
-        inimigo = inimigo;
+    public JogoModel(PlayerController playerParamter, InimigoController inimigoParamter){
+        player = playerParamter;
+        inimigo = inimigoParamter;
 
     }
 
@@ -52,7 +52,6 @@ public class JogoModel {
         if(inimigo.getVida()<=0){
             System.out.println("O player venceu");
             zerarInimigo();
-            iniciarBatalha();
         }else {
             System.out.println("O inimigo venceu. Fim de Jogo!");
             zerarPlayer();
