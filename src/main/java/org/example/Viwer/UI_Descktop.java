@@ -1,130 +1,172 @@
 package org.example.Viwer;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class UI_Descktop {
     JFrame frame;
-    JPanel panel;
+
+
     public UI_Descktop() {
         // Cria a janela
         frame = new JFrame("Minha Janela");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define o comportamento ao fechar
         frame.setSize(400, 300); // Define o tamanho da janela
 
-        // Cria um botão
-        JButton button = new JButton("Clique Aqui");
-
-        // Adiciona uma ação ao botão
-        button.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Botão clicado!"));
-
-        // Adiciona o botão à janela
-        frame.getContentPane().add(button);
 
     }
-    public void preBotton(){
-    // Ação para os botões
-        ActionListener actionListener = e -> JOptionPane.showMessageDialog(frame, "Botão clicado!");
-
-        // Criando diferentes botões usando o ButtonFactory
-        JButton button1 = ButtonFactory.createButton("Botão Simples", actionListener);
-        JButton button2 = ButtonFactory.createButtonWithIcon("Botão com Ícone", "path/to/icon.png", actionListener);
-        JButton button3 = ButtonFactory.createButtonWithColor("Botão Colorido", actionListener, "#FF5733");
-
-        // Painel para adicionar os botões
-
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-
+    public void telaInicio(TelaInicio telaInicio){
+        JPanel panel = telaInicio.iniciar();
+        frame.add(panel);
     }
-    public void panel(){
-        panel = new JPanel();
-        frame.getContentPane().add(panel);
-    }
-    public void run(){
-        panel();
-        preBotton();
+
+
+
+    public void run(TelaInicio telaInicio){
+        telaInicio(telaInicio);
+
+
         // Tornar a janela visível
         frame.setVisible(true);
 
     }
 }
 
-class ButtonFactory {
 
-    // Método para criar um botão com o texto fornecido
-    public static JButton createButton(String text, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.addActionListener(actionListener);
-        return button;
+// Builder para JButton
+class ButtonBuilder {
+    private JButton button;
+
+    public ButtonBuilder(String text) {
+        button = new JButton(text);
     }
 
-    // Método para criar um botão com ícone
-    public static JButton createButtonWithIcon(String text, String iconPath, ActionListener actionListener) {
-        JButton button = new JButton(text);
+    public ButtonBuilder withIcon(String iconPath) {
         button.setIcon(new ImageIcon(iconPath));
-        button.addActionListener(actionListener);
-        return button;
+        return this;
     }
 
-    // Método para criar um botão com texto e cor personalizada
-    public static JButton createButtonWithColor(String text, ActionListener actionListener, String colorHex) {
-        JButton button = new JButton(text);
-        button.setBackground(java.awt.Color.decode(colorHex)); // Define a cor do fundo
+    public ButtonBuilder withColor(String colorHex) {
+        button.setBackground(Color.decode(colorHex));
+        return this;
+    }
+
+    public ButtonBuilder withSize(int width, int height) {
+        button.setPreferredSize(new Dimension(width, height));
+        return this;
+    }
+
+    public ButtonBuilder withActionListener(ActionListener actionListener) {
         button.addActionListener(actionListener);
+        return this;
+    }
+
+    public JButton build() {
         return button;
     }
 }
-class LabelFactory {
 
-    // Método para criar um botão com o texto fornecido
-    public static JButton createLabel(String text, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.addActionListener(actionListener);
-        return button;
-    }
-
-    // Método para criar um botão com ícone
-    public static JButton createLabelWithIcon(String text, String iconPath, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.setIcon(new ImageIcon(iconPath));
-        button.addActionListener(actionListener);
-        return button;
-    }
-
-    // Método para criar um botão com texto e cor personalizada
-    public static JButton createLabelWithColor(String text, ActionListener actionListener, String colorHex) {
-        JButton button = new JButton(text);
-        button.setBackground(java.awt.Color.decode(colorHex)); // Define a cor do fundo
-        button.addActionListener(actionListener);
-        return button;
+// Diretor para ButtonBuilder
+class ButtonDirector {
+    public static JButton createDefaultButton(String text, ActionListener actionListener) {
+        return new ButtonBuilder(text)
+                .withColor("#DDDDDD")
+                .withSize(100, 40)
+                .withActionListener(actionListener)
+                .build();
     }
 }
-class PanelFactory {
 
-    // Método para criar um botão com o texto fornecido
-    public static JButton createPanel(String text, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.addActionListener(actionListener);
-        return button;
+// Builder para JLabel
+class LabelBuilder {
+    private JLabel label;
+
+    public LabelBuilder(String text) {
+        label = new JLabel(text);
     }
 
-    // Método para criar um botão com ícone
-    public static JButton createPanelWithIcon(String text, String iconPath, ActionListener actionListener) {
-        JButton button = new JButton(text);
-        button.setIcon(new ImageIcon(iconPath));
-        button.addActionListener(actionListener);
-        return button;
+    public LabelBuilder withIcon(String iconPath) {
+        label.setIcon(new ImageIcon(iconPath));
+        return this;
     }
 
-    // Método para criar um botão com texto e cor personalizada
-    public static JButton createPanelWithColor(String text, ActionListener actionListener, String colorHex) {
-        JButton button = new JButton(text);
-        button.setBackground(java.awt.Color.decode(colorHex)); // Define a cor do fundo
-        button.addActionListener(actionListener);
-        return button;
+    public LabelBuilder withColor(String colorHex) {
+        label.setForeground(Color.decode(colorHex));
+        return this;
+    }
+
+    public LabelBuilder withSize(int width, int height) {
+        label.setPreferredSize(new Dimension(width, height));
+        return this;
+    }
+
+    public JLabel build() {
+        return label;
     }
 }
+
+// Diretor para LabelBuilder
+class LabelDirector {
+    public static JLabel createDefaultLabel(String text) {
+        return new LabelBuilder(text)
+                .withColor("#000000")
+                .withSize(100, 30)
+                .build();
+    }
+}
+
+// Builder para JPanel
+class PanelBuilder {
+    private JPanel panel;
+
+    public PanelBuilder() {
+        panel = new JPanel();
+    }
+
+    public PanelBuilder withLayout(LayoutManager layout) {
+        panel.setLayout(layout);
+        return this;
+    }
+
+    public PanelBuilder withBackgroundColor(String colorHex) {
+        panel.setBackground(Color.decode(colorHex));
+        return this;
+    }
+
+    public PanelBuilder withSize(int width, int height) {
+        panel.setPreferredSize(new Dimension(width, height));
+        return this;
+    }
+
+    public PanelBuilder addComponent(Component component) {
+        panel.add(component);
+        return this;
+    }
+
+    public JPanel build() {
+        return panel;
+    }
+}
+
+// Diretor para PanelBuilder
+class PanelDirector {
+    public static JPanel createDefaultPanel(Component... components) {
+        PanelBuilder builder = new PanelBuilder()
+                .withLayout(new FlowLayout())
+                .withBackgroundColor("#FFFFFF")
+                .withSize(300, 200);
+        // Adiciona todos os componentes passados como argumento
+        for (Component component : components) {
+            builder.addComponent(component);
+        }
+
+        return builder.build();
+    }
+}
+
+
+
+
 
 
 

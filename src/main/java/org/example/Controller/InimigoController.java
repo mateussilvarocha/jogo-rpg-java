@@ -1,7 +1,7 @@
 package org.example.Controller;
 import org.example.Model.Inimigo;
 
-class InimigoController implements InimigoInterface{
+public class InimigoController implements InimigoInterface{
     private String nome;
     private int vida;
     private int dano;
